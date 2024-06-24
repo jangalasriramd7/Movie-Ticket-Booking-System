@@ -25,7 +25,11 @@ public class MovieController {
 
     @GetMapping("/{movieId}")
     public ResponseEntity<MovieResponse> getMovieById(@PathVariable("movieId") @Valid int movieId) throws MovieNotFoundException {
-        return ResponseEntity.ok(movieService.getMovieById(movieId));
+        System.out.println("Ikkadiki vachindi : " + movieId);
+        MovieResponse movieById = movieService.getMovieById(movieId);
+        System.out.println("movie response "+movieById);
+
+        return ResponseEntity.ok(movieById);
     }
 
 

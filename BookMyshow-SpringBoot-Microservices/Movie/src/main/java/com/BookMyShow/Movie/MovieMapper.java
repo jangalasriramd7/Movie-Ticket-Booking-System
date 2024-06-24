@@ -7,6 +7,7 @@ public class MovieMapper {
 
     public MovieResponse fromMovie(Movie movie){
         return new MovieResponse(
+                movie.getId(),
                 movie.getMovieName(),
                 movie.getDuration(),
                 movie.getRating(),
@@ -16,7 +17,8 @@ public class MovieMapper {
 
     }
     public Movie toMovie(MovieRequest request){
-        return new Movie().builder()
+        return Movie.builder()
+                .id(request.id())
                 .movieName(request.movieName())
                 .duration(request.duration())
                 .rating(request.rating())

@@ -9,8 +9,9 @@ public class ShowSeatMapper {
         return new ShowSeatResponse(
                 showSeat.getId(),
                 showSeat.getSeatNo(),
-                showSeat.getSeatType(),
-                showSeat.getPrice()
+                showSeat.getPrice(),
+                showSeat.isAvailable(),
+                showSeat.getSeatType()
         );
     }
 

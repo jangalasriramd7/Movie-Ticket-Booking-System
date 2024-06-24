@@ -19,10 +19,10 @@ import java.util.*;
 import static org.springframework.http.HttpMethod.GET;
 
 @FeignClient(
-        name = "movie-service",
+        value = "movie-service",
         url = "${application.config.movie-url}"
 )
 public interface MovieClient {
     @GetMapping("/{movieId}")
-    MovieResponse getMovieById(@PathVariable("movieId") int movieId);
+    ResponseEntity<MovieResponse> getMovieById(@PathVariable("movieId") int movieId);
 }

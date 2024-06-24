@@ -2,10 +2,9 @@ package com.BookMyShow.Ticket.user;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.*;
 
 @FeignClient(
         name = "user-service",
@@ -13,6 +12,6 @@ import java.util.*;
 )
 public interface UserClient {
     @GetMapping("/{user-id}")
-    Optional<UserResponse> findUserById(@PathVariable("user-id")int id);
+    ResponseEntity<UserResponse> findUserById(@PathVariable("user-id")int id);
 
 }

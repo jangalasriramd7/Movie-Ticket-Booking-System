@@ -1,17 +1,18 @@
 package com.BookMyShow.Theatre.theatre;
 
-import com.BookMyShow.Exceptions.TheatreAlreadyExistsException;
+import com.BookMyShow.Theatre.Exceptions.TheatreAlreadyExistsException;
+import com.BookMyShow.Theatre.Exceptions.TheatreNotFoundException;
 import com.BookMyShow.Theatre.enums.SeatType;
-import com.BookMyShow.Theatre.shows.Shows;
+import com.BookMyShow.Theatre.shows.ShowMapper;
+import com.BookMyShow.Theatre.shows.ShowResponse;
 import com.BookMyShow.Theatre.shows.ShowsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class TheatreService {
     private final TheatreRepository theatreRepository;
 
     private final ShowsRepository showsRepository;
+
 
     public String addTheatre(TheatreRequest theatreRequest) throws TheatreAlreadyExistsException {
         String theatreName = theatreRequest.theatreName();
@@ -69,34 +71,24 @@ public class TheatreService {
     }
 
 
-    public List<Theatre> getAllTheatresFromRegion(String regionName) {
-        return theatreRepository.findByRegion(regionName);
+    public List<TheatreResponse> getAllTheatresFromRegion(String regionName) {
+        return theatreRepository.findByRegion(regionName).stream().map(TheatreMapper::fromTheatre).toList();
     }
 
 
-    public List<Shows> getAllShowsOfTheatre(int theatreId) {
-        return showsRepository.findByTheatreId(theatreId);
-    }
+    public TheatreResponse findTheatreById(int theatreId) throws TheatreNotFoundException {
+        List<ShowResponse> showList = showsRepository.findByTheatreId(theatreId).stream().map(ShowMapper::fromShow).toList();
+        System.out.println("Printing in theatreService shows : ");
+        showList.forEach(System.out::println);
+        Optional<Theatre> op = theatreRepository.findById(theatreId);
+        if(op.isEmpty()){
+            throw new TheatreNotFoundException("No theatre found with the given Id : " + theatreId);
+        }
+        TheatreResponse response = op.map(TheatreMapper::fromTheatre).get();
+        response.setShowsList(showList);
+        System.out.println("Printing in the theatreService : " + response.getTheatreId() + ", " + response.getTheatreName() + ", " + response.getTheatreRegion()
+        + ", " + response.getShowsList());
+        return response;
 
-
-//    public List<Theatre> getAllTheatresByMovieName(String movieName) {
-//        List<Theatre> theatres = theatreRepository.findAll();
-//        List<Theatre> movieTheatres = new ArrayList<>();
-//        for(Theatre theatre : theatres){
-//            Set<Shows> shows = theatre.getShows()
-//                    .stream()
-//                    .filter(show -> show.getMovieId()
-//                            .equals(movieName))
-//                    .collect(Collectors.toSet());
-//
-//            if(!shows.isEmpty()){
-//                movieTheatres.add(theatre);
-//            }
-//        }
-//        return movieTheatres;
-//    }
-
-    public void deleteTheatreById(int id){
-        theatreRepository.deleteById((long)id);
     }
 }

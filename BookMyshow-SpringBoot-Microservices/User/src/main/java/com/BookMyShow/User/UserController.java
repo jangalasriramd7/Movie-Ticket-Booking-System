@@ -35,9 +35,9 @@ public class UserController {
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/exists/{user-id}")
-    public ResponseEntity<Boolean> existsById(@PathVariable("user-id") int id){
-        return ResponseEntity.ok(userService.existsById(id));
+    @GetMapping("/{user-id}")
+    public ResponseEntity<UserResponse> existsById(@PathVariable("user-id") int id) throws UserNotFoundException {
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 
     @DeleteMapping("/user-id")

@@ -3,7 +3,6 @@ package com.BookMyShow.Theatre.shows;
 import com.BookMyShow.Theatre.Exceptions.ShowNotAvailableException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/book_my_show/theatre/shows")
+@RequestMapping("/book_my_show/theatres/shows")
 @RequiredArgsConstructor
 public class ShowController {
 
@@ -38,7 +37,13 @@ public class ShowController {
 
     @GetMapping("/showSeats/{show-id}")
     public ResponseEntity<List<ShowSeatResponse>> getShowSeats(@PathVariable("show-id") int showId) throws ShowNotAvailableException {
-        showService.getShowSeats(showId);
-        return ResponseEntity.accepted().build();
+        List<ShowSeatResponse> showSeats = showService.getShowSeats(showId);
+        return new ResponseEntity<>(showSeats, HttpStatus.OK);
+    }
+
+    @GetMapping("/{showId}")
+    public ResponseEntity<ShowResponse> findShowById(@PathVariable("showId") int showId){
+        var response = showService.findShowById(showId);
+        return ResponseEntity.ok(response);
     }
 }

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 
 public record MovieRequest(
+        int id,
         @NotNull(message = "Movie Name can't be null")
         @NotBlank(message = "Movie Name can't be blank")
         @NotEmpty(message = "Movie Name can't be Empty")

@@ -1,5 +1,8 @@
 package com.BookMyShow.Theatre.theatre;
 
+import com.BookMyShow.Theatre.Exceptions.TheatreAlreadyExistsException;
+import com.BookMyShow.Theatre.Exceptions.TheatreNotFoundException;
+import com.BookMyShow.Theatre.shows.ShowResponse;
 import com.BookMyShow.Theatre.shows.Shows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,46 +19,20 @@ public class TheatreController {
     TheatreService theatreservice;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addTheatre(@RequestBody TheatreRequest request){
-        try{
-            String result = theatreservice.addTheatre(request);
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
-        }
-        catch(Exception e){
-            return new ResponseEntity<>("Invalid input", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> addTheatre(@RequestBody TheatreRequest request) throws TheatreAlreadyExistsException {
+        String result = theatreservice.addTheatre(request);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping("/region/{region}")
-    public ResponseEntity<List<Theatre>> getAllTheatresFromRegion(@PathVariable("region")String regionName){
-        try{
-            List<Theatre> result = theatreservice.getAllTheatresFromRegion(regionName);
-            return new ResponseEntity<>(result, HttpStatus.FOUND);
-        }
-        catch(Exception e){
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<List<TheatreResponse>> getAllTheatresFromRegion(@PathVariable("region")String regionName){
+        List<TheatreResponse> result = theatreservice.getAllTheatresFromRegion(regionName);
+        return new ResponseEntity<>(result, HttpStatus.FOUND);
     }
 
     @GetMapping("/{theatreId}")
-    public ResponseEntity<List<Shows>> getAllShowsOfTheatre(@PathVariable("theatreId") int theatreId){
-        try{
-            List<Shows> result = theatreservice.getAllShowsOfTheatre(theatreId);
-            return new ResponseEntity<>(result, HttpStatus.FOUND);
-        }
-        catch(Exception e){
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<TheatreResponse> findTheatreById(@PathVariable("theatreId") int theatreId) throws TheatreNotFoundException {
+        TheatreResponse result = theatreservice.findTheatreById(theatreId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-//    @GetMapping("/movie/{name}")
-//    public ResponseEntity<List<Theatre>> getAllTheatresByMovieName(@PathVariable("name") String movieName){
-//        try{
-//            List<Theatre> result = theatreservice.getAllTheatresByMovieName(movieName);
-//            return new ResponseEntity<>(result, HttpStatus.FOUND);
-//        }
-//        catch(Exception e){
-//            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-//        }
-//    }
 }

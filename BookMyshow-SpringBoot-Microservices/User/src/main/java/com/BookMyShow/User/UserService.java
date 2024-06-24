@@ -28,7 +28,7 @@ public class UserService {
 
     public UserResponse findById(int id) throws UserNotFoundException {
         return userRepository.findById(id)
-                .map(mapper::fromUser)
+                .map(UserMapper::fromUser)
                 .orElseThrow(() -> new UserNotFoundException("No User found with the given id"));
     }
 
@@ -50,7 +50,7 @@ public class UserService {
     public List<UserResponse> getAllUsers(){
         return userRepository.findAll()
                 .stream()
-                .map(mapper::fromUser)
+                .map(UserMapper::fromUser)
                 .collect(Collectors.toList());
     }
 
@@ -61,9 +61,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Boolean existsById(int id){
-        return userRepository.findById(id)
-                .isPresent();
+    public UserResponse findUserById(int id) throws UserNotFoundException {
+        return userRepository.findById(id).map(UserMapper::fromUser)
+                .orElseThrow(() -> new UserNotFoundException("User Not found with the given ID"));
     }
 
     public void deleteUser(int id){

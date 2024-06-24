@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/User/pom.xml" />
+        <option value="$PROJECT_DIR$/Movie/pom.xml" />
+        <option value="$PROJECT_DIR$/Ticket/pom.xml" />
+        <option value="$PROJECT_DIR$/Theatre/pom.xml" />
+        <option value="$PROJECT_DIR$/Service-Discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/../eCommerce Project/services/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/../eCommerce Project/services/discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/Discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/User/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/Movie/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/Ticket/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/Theatre/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/Discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMyshow-SpringBoot-Microservices/Gateway/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../eCommerce Project/services/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/../eCommerce Project/services/discovery/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

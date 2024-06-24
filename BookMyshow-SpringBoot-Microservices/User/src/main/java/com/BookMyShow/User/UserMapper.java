@@ -16,7 +16,7 @@ public class UserMapper {
                 .build();
     }
 
-    public UserResponse fromUser(User user){
+    public static UserResponse fromUser(User user){
         if(user == null){
             return null;
         }

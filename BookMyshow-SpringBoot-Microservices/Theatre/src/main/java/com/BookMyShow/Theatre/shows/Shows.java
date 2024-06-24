@@ -36,7 +36,6 @@ public class Shows{
     private int movieId;
     @ManyToOne
     @JoinColumn(name = "theatre_id")
-    @JsonIgnore
     private Theatre theatre;
     @OneToMany(mappedBy = "shows",cascade = CascadeType.ALL)
     private List<ShowSeat> showSeatList = new ArrayList<>();
